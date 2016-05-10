@@ -23,6 +23,8 @@
 	}
     </style>
 
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
 </head>
 
 <body>
@@ -32,10 +34,10 @@
         <div class="jumbotron">
 
             <svg id="visualisation" width="1000" height="500"></svg>
-            <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
             <script>
 		console.log("Hello world")
                 function InitChart() {
+                     var parseTime = d3.time.format("%H:%M").parse;
           	     var data = [{
                         "score": "202",
                         "time": "04:22"
@@ -74,6 +76,8 @@
                         "score": "176",
                         "time": "09:22"
                     }];
+                     data.forEach(function(d) { d.time = parseTime(d.time); });
+                     data2.forEach(function(d) { d.time = parseTime(d.time); });
 	            
                     //var xMin = new Date(d3.min(time));
 		    //var xMax = new Date(d3.max(time));	
