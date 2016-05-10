@@ -93,7 +93,10 @@
                         },
 		
 			// Set scale for x and y axes
-                        xScale = d3.time.scale().range([MARGINS.left, WIDTH - MARGINS.right]).domain([d3.time.day.floor(new Date()), d3.time.day.ceil(new Date())]),
+                        xScale = d3.time.scale()
+                                 .range([MARGINS.left, WIDTH - MARGINS.right])
+                                 .domain([parseTime("03:22"),
+                                          parseTime("10:22")]),
                         yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([120,250]),
                         xAxis = d3.svg.axis()
                         .scale(xScale)
