@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+<head>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+</head>
+
+<body>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	    <script>
+	    $(function () {
+	    $('#container').highcharts({
+		chart: {
+		    type: 'spline'
+		},
+		title: {
+		    text: 'Risk Score vs. Time for Various Hosts'
+		},
+		subtitle: {
+		    text: 'Scan Date: 05/11/2016'
+		},
+		xAxis: {
+		    type: 'datetime',/*
+		    dateTimeLabelFormats: { // don't display the dummy year
+		        month: '%e. %b',
+		        year: '%b'
+		    },*/
+		    title: {
+		        text: 'Time'
+		    }
+		},
+		yAxis: {
+		    title: {
+		        text: 'Risk Score'
+		    },
+		    min: 0
+		},
+		tooltip: {
+		    headerFormat: '<b>{series.name}</b><br>',
+		    pointFormat: '({point.x:%e-%b-%Y %H:%M}) , {point.y:.2f}'
+		},
+
+		plotOptions: {
+		    spline: {
+		        marker: {
+		            enabled: null
+		        }
+		    }
+		},
+
+		series: [{
+		    name: 'Asset 1',
+		    // Define the data points
+		    data: [
+		        [Date.UTC(2016, 04, 11, 03, 43), 0],
+		        [Date.UTC(2016, 04 ,11, 04, 43), 0.28],
+		        [Date.UTC(2016, 04 ,11, 05, 43), 0.25],
+		        [Date.UTC(2016, 04 ,11, 06, 43), 0.2],
+		        [Date.UTC(2016, 04 ,11, 07, 43), 0.28],
+		        [Date.UTC(2016, 04 ,11, 08, 43), 0.28],
+		        [Date.UTC(2016, 04 ,11, 09, 43), 0.47],
+		        [Date.UTC(2016, 04 ,11, 10, 43), 0.79],
+		        [Date.UTC(2016, 04 ,11, 11, 43), 0.72],
+		        [Date.UTC(2016, 04 ,11, 12, 43), 1.02],
+		        [Date.UTC(2016, 04 ,11, 13, 43), 1.12],
+		        [Date.UTC(2016, 04 ,11, 14, 45), 1.2],
+		        [Date.UTC(2016, 04 ,11, 15, 43), 1.18],
+		        [Date.UTC(2016, 04 ,11, 16, 43), 1.19],
+		        [Date.UTC(2016, 04 ,11, 17, 43), 1.85]
+		    ]
+		}, {
+		    name: 'Asset 2',
+		    data: [
+		        [Date.UTC(2016, 04, 11, 03, 43), 0],
+		        [Date.UTC(2016, 04 ,11, 04, 43), 0.45],
+		        [Date.UTC(2016, 04 ,11, 05, 43), 0.35],
+		        [Date.UTC(2016, 04 ,11, 06, 43), 0.2],
+		        [Date.UTC(2016, 04 ,11, 07, 43), 0.38],
+		        [Date.UTC(2016, 04 ,11, 08, 43), 0.48],
+		        [Date.UTC(2016, 04 ,11, 09, 43), 0.47],
+		        [Date.UTC(2016, 04 ,11, 10, 43), 0.43],
+		        [Date.UTC(2016, 04 ,11, 11, 43), 0.32],
+		        [Date.UTC(2016, 04 ,11, 12, 43), 1.23],
+		        [Date.UTC(2016, 04 ,11, 13, 43), 1.42],
+		        [Date.UTC(2016, 04 ,11, 14, 45), 1.22],
+		        [Date.UTC(2016, 04 ,11, 15, 43), 1.13],
+		        [Date.UTC(2016, 04 ,11, 16, 43), 1.29],
+		        [Date.UTC(2016, 04 ,11, 17, 43), 1.34]
+		    ]
+		}, {
+		    name: 'Asset 3',
+		    data: [
+		        [Date.UTC(2016, 04, 11, 03, 43), 0.3],
+		        [Date.UTC(2016, 04 ,11, 04, 43), 0.25],
+		        [Date.UTC(2016, 04 ,11, 05, 43), 0.45],
+		        [Date.UTC(2016, 04 ,11, 06, 43), 0.23],
+		        [Date.UTC(2016, 04 ,11, 07, 43), 0.48],
+		        [Date.UTC(2016, 04 ,11, 08, 43), 0.58],
+		        [Date.UTC(2016, 04 ,11, 09, 43), 0.27],
+		        [Date.UTC(2016, 04 ,11, 10, 43), 0.33],
+		        [Date.UTC(2016, 04 ,11, 11, 43), 0.52],
+		        [Date.UTC(2016, 04 ,11, 12, 43), 1.13],
+		        [Date.UTC(2016, 04 ,11, 13, 43), 1.22],
+		        [Date.UTC(2016, 04 ,11, 14, 45), 1.42],
+		        [Date.UTC(2016, 04 ,11, 15, 43), 1.23],
+		        [Date.UTC(2016, 04 ,11, 16, 43), 1.39],
+		        [Date.UTC(2016, 04 ,11, 17, 43), 1.54]
+		    ]
+		}]
+	    });
+	});
+        </script>
+    </div>
+</body>
+
+</html>
