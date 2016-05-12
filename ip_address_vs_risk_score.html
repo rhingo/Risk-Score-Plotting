@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Bar Chart</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="../dist/Chart.bundle.js"></script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container" style="width: 65%;">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script>
+
+        //Initalize data
+        var barChartData = { 
+            labels: [],
+            datasets: [
+                {
+                    backgroundColor: "rgba(10,10,255,.5)",
+                    data: [],
+                }
+            ]
+        };
+
+        //Begin reading in data and append to barChartData
+        $.getJSON('bardata.json')
+         .done(function(data){
+            for(var i = 0 ; i < data.length; ++i){
+                asset_ip_address = data[i].asset_scans_ip_address;
+                asset_risk_score = data[i].asset_scans_risk_score;
+                barChartData.labels.push(asset_ip_address);
+                barChartData.datasets[0].data.push(asset_risk_score);
+            }
+        });
+
+        //Initialize chart
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: barChartData,
+                options: {
+                    elements: {
+                        rectangle: {
+                            borderWidth: 2,
+                            borderColor: 'rgb(0, 0, 255)',
+                            borderSkipped: 'bottom'
+                        }
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Risk Score'
+                            }
+                        },],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'IP Address'
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'IP Address vs Risk Score'
+                    }
+                }
+            });
+
+        };
+    </script>
+</body>
+
+</html>
