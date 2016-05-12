@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Line Chart</title>
+	<script src="../../node_modules/moment/min/moment.min.js"></script>
+	<script src="../Chart.js/dist/Chart.bundle.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+	</style>
+</head>
+
+<body>
+	<div style="width:80%;">
+		<canvas id="canvas"></canvas>
+	</div>
+	<br>
+	<br>
+	<script>
+		var timeFormat = 'MM/DD/YYYY HH:mm';
+
+		//Declare functions for generating random colors
+		function randomColorFactor() {
+			return Math.round(Math.random() * 255);
+		}
+
+		function randomColor(opacity) {
+			return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+		}
+
+		//Begin reading in the data
+		$.getJSON('sample_risk_score_data.json')
+		  .done(function(data){
+			var config = {
+				type: 'line',
+				data: {datasets: []},
+				options: {
+					responsive: true,
+					title:{
+						display:true,
+						text:"Risk Score vs. Time for Various Hosts"
+					},
+					scales: {
+						xAxes: [{
+							type: "time",
+							time: {
+								format: timeFormat,
+								tooltipFormat: 'll HH:mm'
+							},
+							scaleLabel: {
+								display: true,
+								labelString: 'Date/Time'
+							}
+						}, ],
+						yAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: 'Risk score'
+							}
+						}]
+					},
+				}
+			};
+
+			var ctx = document.getElementById("canvas").getContext("2d");
+			window.myLine = new Chart(ctx, config);
+
+			//Create new dataset
+			$.each(data, function(asset_id, asset_data) {
+				var color = randomColor(0.6);
+				scores = asset_data["risk_scores"];
+				var newDataset = {
+					label: 'Asset ' + asset_id,
+					borderColor: color,
+					backgroundColor: color,
+					pointBorderColor: color,
+					pointBackgroundColor: color,
+					pointBorderWidth: 1,
+					fill: false,
+					lineTension: 0,
+					data: [],
+				};
+				//Populate the dataset
+				for (var i = 0; i < scores.length; ++i) {
+					newDataset.data.push({
+						x: Date.parse(scores[i][0]),
+						y: scores[i][1],
+					});
+				}
+				//Add the dataset to config
+				config.data.datasets.push(newDataset);	
+				window.myLine.update();
+			})
+		});
+	</script>
+</body>
+</html>
